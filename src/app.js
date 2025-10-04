@@ -4,40 +4,23 @@ const {adminAuth,userAuth}=require("./middlewares/auth");
 const app=express();
 
 
-app.use("/admin",adminAuth);
+app.get("/getUserData",(req,res,next)=>{
+    //logic of DB call and get users
+    try {
+         throw new Error("some random error");
+    res.send("User data sent");
+    } catch (error) {
+        res.status(500).send("Some error contact support")
+    }
 
-// app.use("/user",userAuth)
-app.get("/user",(req,res,next)=>{
-    res.send("user data sent");
-})
-
-
-app.post("/user/login",(req,res,next)=>{
-    res.send("user logged in successfully");
-})
-
-app.get("/user/data",userAuth,(req,res,next)=>{
-    res.send("user data sent ");
-})
-
-app.get("/admin/getAllData",(req,res,next)=>{
    
-        res.send("All data sent");
 })
 
-app.get("/admin/deleteUser",(req,res,next)=>{
-    const token="xyz";
-    const isAdminAuthorized=token==="xyz";
-    if(isAdminAuthorized){
-        res.send("User deleted");
+app.use("/",(err,req,res,next)=>{
+    if(err){
+        res.status(500).send("Something Went Wrong");
     }
-    else{
-        res.status(401).send("Unauthorized request");
-    }
-    
 })
-
-
 
 
 app.listen(4000,()=>{
