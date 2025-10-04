@@ -1,38 +1,46 @@
-console.log("starting a new project");
-const express=require('express');
+const express=require("express");
+const {adminAuth,userAuth}=require("./middlewares/auth");
+
 const app=express();
-const port=4000;
 
-// will match only GET HTTP method api call to /user
-// app.get('/user',(req,res)=>{
-//     res.send({first_name:"Rohit",last_name:"Morya"});
-// })
 
-// app.post('/user',(req,res)=>{
-//     //save data to db
-//     res.send("data saved in db succesfully")
-// })
-// app.delete('/user',(req,res)=>{
-//     //delete user from
-//     res.send("user deleted successfully");
-// })
+app.use("/admin",adminAuth);
 
-// // handles request for /abc and also for ac (b is optional)
-// app.get("/ab?c",(req,res)=>{
-//     res.send({firstname:"Bulbul",lastname:"Soni"});
-// })
-
-// app.get("/ab+c",(req,res)=>{
-//     res.send("hello from ab+C");
-// })
-// will match all HTTP method api call to /test
-app.get("/user/:userId",(req,res)=>{
-    // console.log(req.query);
-    console.log(req.params);
-    res.send("Hello from the Server")
+// app.use("/user",userAuth)
+app.get("/user",(req,res,next)=>{
+    res.send("user data sent");
 })
 
 
-app.listen(port,()=>{
-    console.log('example app listening on port',port);
+app.post("/user/login",(req,res,next)=>{
+    res.send("user logged in successfully");
 })
+
+app.get("/user/data",userAuth,(req,res,next)=>{
+    res.send("user data sent ");
+})
+
+app.get("/admin/getAllData",(req,res,next)=>{
+   
+        res.send("All data sent");
+})
+
+app.get("/admin/deleteUser",(req,res,next)=>{
+    const token="xyz";
+    const isAdminAuthorized=token==="xyz";
+    if(isAdminAuthorized){
+        res.send("User deleted");
+    }
+    else{
+        res.status(401).send("Unauthorized request");
+    }
+    
+})
+
+
+
+
+app.listen(4000,()=>{
+    console.log("server running on port 4000")
+})
+
