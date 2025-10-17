@@ -7,20 +7,18 @@ const connectDB=require("./config/database");
 const app=express();
 const User=require('./models/user');
 
-app.post("/signup",async(req,res)=>{
+app.post("/singup",async(req,res)=>{
     const user=new User({
         firstName:"Rohit",
         lastName:"Morya",
         emailId:"morya@gmail.com",
         password:"Rohit@123"
     });
-
-    try {
-        await user.save();
+    await user.save();
     res.send("user created successfully");
-    } catch (error) {
-        res.status(400).send("error saving the user",error.message);
-    }
+})
+app.use("/",(req,res)=>{
+    res.send("hello");
 })
 
 

@@ -14,13 +14,8 @@ app.post("/signup",async(req,res)=>{
         emailId:"morya@gmail.com",
         password:"Rohit@123"
     });
-
-    try {
-        await user.save();
+    await user.save();
     res.send("user created successfully");
-    } catch (error) {
-        res.status(400).send("error saving the user",error.message);
-    }
 })
 
 
