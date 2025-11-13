@@ -13,15 +13,15 @@ app.use(express.json());
 app.post("/signup",async(req,res)=>{
 
     
-    //creating new instance of the user model
-    const user=new User(req.body);
+    console.log(req.body);
+    // const user=new User(req.body);
 
-    try {
-        await user.save();
-    res.send("user created successfully");
-    } catch (error) {
-        res.status(400).send("error saving the user",error.message);
-    }
+    // try {
+    //     await user.save();
+    // res.send("user created successfully");
+    // } catch (error) {
+    //     res.status(400).send("error saving the user",error.message);
+    // }
 })
 
 

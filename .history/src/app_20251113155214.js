@@ -13,7 +13,7 @@ app.use(express.json());
 app.post("/signup",async(req,res)=>{
 
     
-    //creating new instance of the user model
+    
     const user=new User(req.body);
 
     try {

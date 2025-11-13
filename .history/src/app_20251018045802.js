@@ -7,14 +7,13 @@ const connectDB=require("./config/database");
 const app=express();
 const User=require('./models/user');
 
-//middleware by xpress
-app.use(express.json());
-
 app.post("/signup",async(req,res)=>{
-
-    
-    //creating new instance of the user model
-    const user=new User(req.body);
+    const user=new User({
+        firstName:"Shekhar",
+        lastName:"Morya",
+        emailId:"morya@gmail.com",
+        password:"Shekhar@123"
+    });
 
     try {
         await user.save();
