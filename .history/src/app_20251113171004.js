@@ -25,7 +25,7 @@ app.post("/signup",async(req,res)=>{
 });
 
 //get user by email
-app.get("/user",async(req,res)=>{
+app.get("/users",async(req,res)=>{
     const userEmail=req.body.emailId;
     try {
         const user=await User.findOne({emailId:userEmail});
@@ -34,22 +34,6 @@ app.get("/user",async(req,res)=>{
         }
         else{
             res.send(user);
-        }
-    } catch (error) {
-        res.status(400).send("something went wrong");
-    }
-})
-
-//Feed API - GET/feed -  get all the users from the database
-
-app.get("/feed",async(req,res)=>{
-    try {
-        const users=await User.find({});
-        if(users.length>0){
-            res.send(users);
-        }
-        else{
-            res.send("database is empty");
         }
     } catch (error) {
         res.status(400).send("something went wrong");

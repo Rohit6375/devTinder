@@ -40,22 +40,6 @@ app.get("/user",async(req,res)=>{
     }
 })
 
-//Feed API - GET/feed -  get all the users from the database
-
-app.get("/feed",async(req,res)=>{
-    try {
-        const users=await User.find({});
-        if(users.length>0){
-            res.send(users);
-        }
-        else{
-            res.send("database is empty");
-        }
-    } catch (error) {
-        res.status(400).send("something went wrong");
-    }
-})
-
 
 connectDB().then(()=>{
     console.log("Database connected successfully");
