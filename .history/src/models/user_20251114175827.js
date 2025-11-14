@@ -6,16 +6,15 @@ const userSchema=new mongoose.Schema({
         type:String,
         required:true,
         minLength:4,
-        maxLength:50,
+        
     },
     lastName:{
         type:String
-        
     },
     emailId:{
         type:String,
         required:true,
-        unique:true,
+        unique:false,
         trim:true ,
         
         lowercase:true
@@ -40,23 +39,17 @@ const userSchema=new mongoose.Schema({
     },
     photoUrl:{
         type:String,
-        default:"https://media.istockphoto.com/id/1327592506/vector/default-avatar-photo-placeholder-icon-grey-profile-picture-business-man.jpg?s=1024x1024&w=is&k=20&c=er-yFBCv5wYO_curZ-MILgW0ECSjt0DDg5OlwpsAgZM="
     },
 
     about:{
         type:String,
-        default:"i am a looser"
     },
     skills:{
         type:[String],
     }
 
 
-},
-{
-    timestamps:true,
-}
-);
+});
 
 // const User=mongoose.model("User",userSchema);
 
