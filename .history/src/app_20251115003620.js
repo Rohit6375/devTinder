@@ -82,13 +82,10 @@ app.patch("/user/:userId",async(req,res)=>{
     const userId=req.params?.userId;
     const data=req.body;
     try {
-        const ALLOWED_UPDATES=["firstName","photoUrl","about","gender","age","skills"];
+        const ALLOWED_UPDATES=["photoUrl","about","gender","age","skills"];
         const isUpdateAllowed=Object.keys(data).every((k)=>ALLOWED_UPDATES.includes(k));
         if(!isUpdateAllowed){
             throw new Error("Update Not Allowed");
-        }
-        if(data.skills.length>10){
-            throw new Error("skills can't be more than 10");
         }
      const user=   await User.findByIdAndUpdate(userId,data,
         {returnDocument:"after",
