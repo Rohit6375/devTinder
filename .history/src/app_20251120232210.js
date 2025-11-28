@@ -25,9 +25,9 @@ app.use("/",requestRouter);
 
 
 
-// app.use("/",(req,res)=>{
-//     res.send("hello world")
-// })
+app.use("/",(req,res)=>{
+    res.send("hello world")
+})
 
 
 

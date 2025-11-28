@@ -2,7 +2,8 @@ const express=require("express");
 // const {adminAuth,userAuth}=require("./middlewares/auth");
 
 const connectDB=require("./config/database");
-const jwt=require('jsonwebtoken');
+const jwt=require('jsonwebtoken')
+;
 const app=express();
 const cookieParser=require('cookie-parser');
 const authRouter=require('./routes/auth')
@@ -25,9 +26,9 @@ app.use("/",requestRouter);
 
 
 
-// app.use("/",(req,res)=>{
-//     res.send("hello world")
-// })
+app.use("/",(req,res)=>{
+    res.send("hello world")
+})
 
 
 

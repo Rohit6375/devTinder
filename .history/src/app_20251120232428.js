@@ -13,9 +13,9 @@ const requestRouter=require('./routes/request');
 app.use(express.json());
 app.use(cookieParser());
 
-app.use("/",authRouter);
-app.use("/",profileRouter);
-app.use("/",requestRouter);
+app.use("/",authRouter());
+app.use("/",profileRouter());
+app.use("/",requestRouter());
 
 
 
@@ -25,9 +25,9 @@ app.use("/",requestRouter);
 
 
 
-// app.use("/",(req,res)=>{
-//     res.send("hello world")
-// })
+app.use("/",(req,res)=>{
+    res.send("hello world")
+})
 
 
 
