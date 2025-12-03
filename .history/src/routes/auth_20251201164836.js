@@ -13,7 +13,7 @@ try {
        validateSignUpData(req);
     
     // encrypt password
-    const{firstName,lastName,emailId,password,about,skills,age}=req.body;
+    const{firstName,lastName,emailId,password,about}=req.body;
     
     const hashPassword=await bcrypt.hash(password,10);
     
@@ -23,10 +23,7 @@ try {
         lastName,
         emailId,
         password:hashPassword,
-        about,
-        skills,
-        age,
-
+        about
     });
 
     

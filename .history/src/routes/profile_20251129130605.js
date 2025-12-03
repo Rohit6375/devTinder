@@ -39,25 +39,11 @@ data:loggedInUser
 //update password
 profileRouter.patch("/profile/password",userAuth,async(req,res)=>{
     try {
-        
-        const {oldPassword,password:newPassword}=req.body;
+        validatePassword(req);
+        const {password}=req.body;
+        const loggedInUser=req.user;
 
-        if(!oldPassword) throw new Error("old password is required");
-        if(!newPassword) throw new Error("new password is required");
-
-
-
-          const loggedInUser=req.user;
-         // compare old password
-        const isMatch=await bcrypt.compare(oldPassword,loggedInUser.password);
-        if(!isMatch){
-            throw new Error("Old password is Incorrect");
-        }
-
-        validatePassword(newPassword);
-        
-         // hash new password
-        const hashedPassword= await bcrypt.hash(newPassword,10);
+        const hashedPassword= await bcrypt.hash(password,10);
 
         loggedInUser.password=hashedPassword;
 

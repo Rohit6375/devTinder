@@ -20,10 +20,12 @@ const validateEditProfileData=(req)=>{
     return isEditAllowed;
 }
 
-const validatePassword=(password)=>{
-    
-  
-if(!validator.isStrongPassword(password)){
+const validatePassword=(req)=>{
+    const {password}=req.body;
+    if(!password){
+        throw new Error("password is required");
+    }
+else if(!validator.isStrongPassword(password)){
     throw new Error("Please enter a strong password")
 }
 

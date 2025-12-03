@@ -45,9 +45,6 @@ profileRouter.patch("/profile/password",userAuth,async(req,res)=>{
         if(!oldPassword) throw new Error("old password is required");
         if(!newPassword) throw new Error("new password is required");
 
-
-
-          const loggedInUser=req.user;
          // compare old password
         const isMatch=await bcrypt.compare(oldPassword,loggedInUser.password);
         if(!isMatch){
@@ -56,6 +53,9 @@ profileRouter.patch("/profile/password",userAuth,async(req,res)=>{
 
         validatePassword(newPassword);
         
+        const loggedInUser=req.user;
+
+       
          // hash new password
         const hashedPassword= await bcrypt.hash(newPassword,10);
 

@@ -55,7 +55,10 @@ profileRouter.patch("/profile/password",userAuth,async(req,res)=>{
         }
 
         validatePassword(newPassword);
-        
+
+      
+
+       
          // hash new password
         const hashedPassword= await bcrypt.hash(newPassword,10);
 
