@@ -13,10 +13,7 @@ const userRouter=require('./routes/user');
 const cors=require('cors');
 
 //handling cors error using cors middleware
-app.use(cors({
-    origin:"http://localhost:5173",
-    credentials:true
-}));
+app.use(cors());
 
 //middleware by xpress
 app.use(express.json());

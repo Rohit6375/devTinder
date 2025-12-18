@@ -14,7 +14,7 @@ const cors=require('cors');
 
 //handling cors error using cors middleware
 app.use(cors({
-    origin:"http://localhost:5173",
+    origin:"http://localhost:5173/login",
     credentials:true
 }));
 

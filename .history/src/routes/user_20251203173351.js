@@ -15,7 +15,7 @@ userRouter.get("/user/requests/received",userAuth,async(req,res)=>{
         const connectionRequests=await ConnectionRequestModel.find({
             toUserId:loggedInUser._id,
             status:"interested"
-        }).populate("fromUserId",["firstName","lastName","gender","age","about","photoUrl","skills"]);
+        }).populate("fromUserId",["firstName","lastName","gender","age"]);
         res.json({
             message:"Data fetched successfully",
             data:connectionRequests
@@ -53,13 +53,6 @@ userRouter.get("/user/connections",userAuth,async(req,res)=>{
 
 userRouter.get("/feed",userAuth,async(req,res)=>{
     try {
-        const page=parseInt(req.query.page) || 1;
-        let limit=parseInt(req.query.limit) || 10;
-        limit=limit>50?50:limit;
-        const skip=(page-1)*limit;
-
-
-
         const loggedInUser=req.user;
         const connectionRequests=await ConnectionRequestModel.find({
             $or:[
@@ -79,7 +72,7 @@ userRouter.get("/feed",userAuth,async(req,res)=>{
                 {_id:{$nin:Array.from(hideUsersFromFeed)}},
                 {_id:{$ne:loggedInUser._id}}
             ]
-        }).select(USER_SAFE_DATA).skip(skip).limit(limit);
+        }).select(USER_SAFE_DATA);
        
         res.json({data:users})
 
