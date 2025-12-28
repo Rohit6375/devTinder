@@ -1,7 +1,8 @@
 
 const mongoose=require('mongoose');
 const validator=require('validator');
-
+const jwt=require('jsonwebtoken');
+const bcrypt=require('bcrypt');
 const userSchema=new mongoose.Schema({
     firstName:{
         type:String,
@@ -16,7 +17,7 @@ const userSchema=new mongoose.Schema({
     emailId:{
         type:String,
         required:true,
-        unique:true,
+        unique: true,
         trim:true ,
         lowercase:true,
         validate(value){
@@ -50,7 +51,7 @@ const userSchema=new mongoose.Schema({
     },
     photoUrl:{
         type:String,
-        default:"https://media.istockphoto.com/id/1327592506/vector/default-avatar-photo-placeholder-icon-grey-profile-picture-business-man.jpg?s=1024x1024&w=is&k=20&c=er-yFBCv5wYO_curZ-MILgW0ECSjt0DDg5OlwpsAgZM="
+        default:"https://thumbs.dreamstime.com/z/default-avatar-profile-icon-grey-photo-placeholder-illustrations-vectors-default-avatar-profile-icon-grey-photo-placeholder-99724602.jpg?ct=jpeg"
     },
 
     about:{
@@ -67,6 +68,20 @@ const userSchema=new mongoose.Schema({
     timestamps:true,
 }
 );
+
+userSchema.methods.getJWT=async function(){
+    const user=this;
+    const token=await jwt.sign({_id:user._id},"Rohit@7727",{expiresIn:'7d'});
+    return token;
+}
+
+userSchema.methods.validatePassword=async function(passwordInputByUser){
+    const user=this;
+    const passwordHash=user.password;
+    const isPasswordValid=await bcrypt.compare(passwordInputByUser,passwordHash);
+    return isPasswordValid;
+}
+
 
 // const User=mongoose.model("User",userSchema);
 

@@ -13,7 +13,7 @@ try {
        validateSignUpData(req);
     
     // encrypt password
-    const{firstName,lastName,emailId,password}=req.body;
+    const{firstName,lastName,emailId,password,about,skills,age}=req.body;
     
     const hashPassword=await bcrypt.hash(password,10);
     
@@ -22,21 +22,26 @@ try {
         firstName,
         lastName,
         emailId,
-        password:hashPassword
+        password:hashPassword,
+        about,
+        skills,
+        age,
+
     });
 
     
-        await user.save({runValidators:true});
-    res.send("user created successfully");
+   const savedUser= await user.save({runValidators:true});
+
+    res.json({message:"user created successfully",data:savedUser});
     } catch (error) {
         res.status(400).send("ERROR : "+error.message);
     }
 });
 
 //login api
-
 authRouter.post("/login",async(req,res)=>{
     try {
+        
         const {emailId,password}=req.body;
         const user=await User.findOne({emailId:emailId});
         if(!user){
@@ -47,7 +52,7 @@ authRouter.post("/login",async(req,res)=>{
             //create jwt token
             const token=await user.getJWT();
             res.cookie("token",token,{expires:new Date(Date.now()+8*3600000)});
-            res.send("Login Successfull");
+            res.send(user);
         }
         else{
             throw new Error("Invalid Credentials");
@@ -56,5 +61,14 @@ authRouter.post("/login",async(req,res)=>{
         res.status(400).send("ERROR : "+error.message);
     }
 })
+
+//logout api
+authRouter.post("/logout",async (req,res)=>{
+    res.cookie("token",null,{
+        expires:new Date(Date.now()),
+    });
+    res.send("logout successfull");
+});
+
 
 module.exports=authRouter;
