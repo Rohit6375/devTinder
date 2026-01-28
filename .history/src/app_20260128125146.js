@@ -1,5 +1,4 @@
 const express=require("express");
-require("dotenv").config();
 // const {adminAuth,userAuth}=require("./middlewares/auth");
 
 const connectDB=require("./config/database");
@@ -35,7 +34,6 @@ connectDB().then(()=>{
 })
 
 }).catch((err)=>{
-    // console.log(err);
     console.error("database can't be connected");
 })
 

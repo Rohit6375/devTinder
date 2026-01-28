@@ -56,7 +56,7 @@ const userSchema=new mongoose.Schema({
 
     about:{
         type:String,
-        default:"This bio is shy. Say hi."
+        default:"i am This bio is shy. Say hi. looser"
     },
     skills:{
         type:[String],
@@ -71,7 +71,7 @@ const userSchema=new mongoose.Schema({
 
 userSchema.methods.getJWT=async function(){
     const user=this;
-    const token=await jwt.sign({_id:user._id},process.env.JWT_SECRET,{expiresIn:'7d'});
+    const token=await jwt.sign({_id:user._id},"Rohit@7727",{expiresIn:'7d'});
     return token;
 }
 
