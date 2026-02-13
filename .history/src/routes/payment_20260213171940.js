@@ -69,7 +69,6 @@ paymentRouter.post("/payment/webhook", async (req,res)=>{
 
   payment.status = paymentDetails.status;
   await payment.save();
-  console.log("payment saved");
 
   const user = await User.findById(payment.userId);
   if(!user) return res.status(404).send("user not found");
@@ -77,7 +76,6 @@ paymentRouter.post("/payment/webhook", async (req,res)=>{
   user.isPremium = true;
   user.membershipType = payment.notes.membershipType;
   await user.save();
-  console.log("user saved");
 
   return res.status(200).send("ok");
 
