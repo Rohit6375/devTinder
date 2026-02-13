@@ -49,6 +49,13 @@ const userSchema=new mongoose.Schema({
         }
 
     },
+    isPremium:{
+        type:Boolean,
+        default:false
+    },
+    memebershipType:{
+          type:String,
+    },
     photoUrl:{
         type:String,
         default:"https://thumbs.dreamstime.com/z/default-avatar-profile-icon-grey-photo-placeholder-illustrations-vectors-default-avatar-profile-icon-grey-photo-placeholder-99724602.jpg?ct=jpeg"

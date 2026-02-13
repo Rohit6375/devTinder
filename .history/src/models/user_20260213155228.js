@@ -49,6 +49,13 @@ const userSchema=new mongoose.Schema({
         }
 
     },
+    isPremium:{
+        type:Boolean,
+        default:false
+    },
+    memebershipType:{
+          type:String,
+    },
     photoUrl:{
         type:String,
         default:"https://thumbs.dreamstime.com/z/default-avatar-profile-icon-grey-photo-placeholder-illustrations-vectors-default-avatar-profile-icon-grey-photo-placeholder-99724602.jpg?ct=jpeg"
@@ -56,7 +63,7 @@ const userSchema=new mongoose.Schema({
 
     about:{
         type:String,
-        default:"This bio is shy. Say hi. looser"
+        default:"This bio is shy. Say hi."
     },
     skills:{
         type:[String],
@@ -71,7 +78,7 @@ const userSchema=new mongoose.Schema({
 
 userSchema.methods.getJWT=async function(){
     const user=this;
-    const token=await jwt.sign({_id:user._id},"Rohit@7727",{expiresIn:'7d'});
+    const token=await jwt.sign({_id:user._id},process.env.JWT_SECRET,{expiresIn:'7d'});
     return token;
 }
 

@@ -73,7 +73,7 @@ userRouter.get("/feed",userAuth,async(req,res)=>{
                 {_id:{$ne:loggedInUser._id}}
             ]
         })
-        console.log(hideUsersFromFeed);
+        // console.log(hideUsersFromFeed);
         res.send(users).select(USER_SAFE_DATA);
 
     } catch (error) {
